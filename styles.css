@@ -89,6 +89,10 @@ select:focus {
     background-color: darkorange;
   }
 
+input, textarea {
+    text-transform: uppercase; /* Automatically makes text uppercase */
+}
+
 
 /* Button Styling */
 button {

@@ -219,8 +219,8 @@ async function fillPDF() {
             firstPage.drawImage(photoImage, {
                 x: 435, // Adjust X position for placement
                 y: yPosition(246), // Adjust Y position for placement
-                width: 70,
-                height: 70,
+                width: 68,
+                height: 68,
             });
             console.log("Photo successfully embedded into PDF.");
         }

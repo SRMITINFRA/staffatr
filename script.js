@@ -84,6 +84,12 @@ function getTouchPos(e) {
     };
 }
 
+document.querySelectorAll("input, textarea").forEach((field) => {
+    field.addEventListener("input", (e) => {
+        e.target.value = e.target.value.toUpperCase();
+    });
+});
+
 // Show modal for signature
 document.getElementById("studentSignatureBtn").addEventListener("click", () => {
     currentSignatureTarget = "studentSignature";

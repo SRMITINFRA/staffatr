@@ -55,6 +55,21 @@ function startDrawing(position) {
     ctx.moveTo(position.x, position.y);
 }
 
+function resizeImage(dataUrl, width, height, callback) {
+    const img = new Image();
+    img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        callback(canvas.toDataURL('image/png'));
+    };
+    img.src = dataUrl;
+}
+
+
+
 // Function to draw
 function draw(position) {
     if (!drawing) return;
@@ -116,8 +131,27 @@ document.getElementById("cancelSignature").addEventListener("click", () => {
     modal.style.display = "none";
 });
 
+// Handle photo capture on mobile
+document.getElementById('capturePhotoInput').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const photoDataURL = reader.result;
+            resizeImage(photoDataURL, 300, 300, (resizedPhoto) => {
+                document.getElementById('photoData').value = resizedPhoto;
+                alert("Photo captured and resized successfully!");
+            });
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Failed to capture photo. Please try again.");
+    }
+});
+
 async function fillPDF() {
     try {
+        const photoData = document.getElementById("photoData").value;
         const date = formatDate(document.getElementById('date').value);
         const atrNo = document.getElementById('atrNo').value;
         const prefixname = document.getElementById('namePrefix').value;
@@ -180,6 +214,19 @@ async function fillPDF() {
             });
         }
 
+        if (photoData) {
+            const photoImage = await pdfDoc.embedPng(photoData); // Resized photo is used here
+            firstPage.drawImage(photoImage, {
+                x: 435, // Adjust X position for placement
+                y: yPosition(246), // Adjust Y position for placement
+                width: 70,
+                height: 70,
+            });
+            console.log("Photo successfully embedded into PDF.");
+        }
+
+
+        
         // Add signatures
         if (studentSignature) {
             const studentSignatureImage = await pdfDoc.embedPng(studentSignature);

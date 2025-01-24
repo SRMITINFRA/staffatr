@@ -197,7 +197,9 @@ async function fillPDF() {
         const blob = new Blob([pdfBytes], { type: "application/pdf" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "GrievanceForm.pdf";
+        const staffName = document.getElementById("studentName").value.trim() || "Staff";
+        const formId = document.getElementById("atrNo").value || "GrievanceForm"; // Fallback to default if empty
+        link.download = `${staffName}_${atrNo}.pdf`; // Set the filename to the ATR No value
         link.click();
     } catch (error) {
         console.error("Error generating PDF:", error);

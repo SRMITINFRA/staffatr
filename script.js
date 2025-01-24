@@ -120,6 +120,7 @@ async function fillPDF() {
     try {
         const date = formatDate(document.getElementById('date').value);
         const atrNo = document.getElementById('atrNo').value;
+        const prefixname = document.getElementById('namePrefix').value;
         const studentName = document.getElementById('studentName').value;
         const regNumber = document.getElementById('regNumber').value;
         const Department = document.getElementById('Department').value;
@@ -147,7 +148,8 @@ async function fillPDF() {
 
         firstPage.drawText(`${date}`, { x: 454, y: yPosition(172), size: 12 });
         firstPage.drawText(`${atrNo}`, { x: 128, y: yPosition(173), size: 12 });
-        firstPage.drawText(`${studentName}`, { x: 280, y: yPosition(291), size: 12 });
+        firstPage.drawText(`${prefixname}`, { x: 280, y: yPosition(291), size: 12 });
+        firstPage.drawText(`${studentName}`, { x: 306, y: yPosition(291), size: 12 });
         firstPage.drawText(`${regNumber}`, { x: 280, y: yPosition(318), size: 12 });
         firstPage.drawText(`${Department}`, { x: 280, y: yPosition(338), size: 12 });
         firstPage.drawText(`${HostelBlock}`, { x: 280, y: yPosition(365), size: 12 });

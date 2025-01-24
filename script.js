@@ -63,6 +63,12 @@ function draw(position) {
     ctx.stroke();
 }
 
+function updateCounter() {
+    const grievanceInput = document.getElementById("grievance");
+    const charCount = document.getElementById("charCount");
+    charCount.textContent = `${grievanceInput.value.length}/38`;
+}
+
 // Function to stop drawing
 function stopDrawing() {
     drawing = false;

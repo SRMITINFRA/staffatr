@@ -172,6 +172,13 @@ document.getElementById('capturePhotoInput').addEventListener('change', (event) 
 
 async function fillPDF() {
     try {
+        // Determine if "Staff" or "Student" is selected
+        const userType = document.querySelector('input[name="userType"]:checked').value;
+        // Set the appropriate PDF template based on selection
+        const pdfTemplate = userType === "Staff" ? "staffatr.pdf" : "studentatr.pdf";
+
+        
+        
         const photoData = document.getElementById("photoData").value;
         const date = formatDate(document.getElementById('date').value);
         const atrNo = document.getElementById('atrNo').value;
@@ -191,7 +198,7 @@ async function fillPDF() {
         const GrievanceResolvedby = document.getElementById('GrievanceResolvedby').value;
 
 
-        const response = await fetch("staffatr.pdf");
+        const response = await fetch(pdfTemplate);
         const existingPdfBytes = await response.arrayBuffer();
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
         const pages = pdfDoc.getPages();

@@ -70,6 +70,14 @@
         <button type="button" id="additionalSignatureBtn">Technician Signature</button>
         <input type="hidden" id="additionalSignature">
         <br>
+
+        <label for="capturePhotoInput">Capture Photo:</label>
+        <input type="file" id="capturePhotoInput" accept="image/*" capture="environment">
+        <input type="hidden" id="photoData">
+        <br>
+        
+        
+        
         <button id="generate-pdf-btn" type="button" onclick="fillPDF()">Download ATR</button>
         
 

@@ -9,6 +9,27 @@ function formatDate(dateString) {
     return `${day}-${month}-${year}`;
 }
 
+document.getElementById('customFileButton').addEventListener('click', () => {
+    document.getElementById('capturePhotoInput').click(); // Trigger file input on button click
+});
+
+document.getElementById('capturePhotoInput').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const photoDataURL = reader.result;
+            document.getElementById('photoData').value = photoDataURL;
+            alert("Photo captured successfully!");
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Failed to capture photo. Please try again.");
+    }
+});
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('atrNo').value = generateATRNo();
 });
